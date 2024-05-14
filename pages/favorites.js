@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-const Home = () => {
+const Favorites = () => {
   return <View></View>;
 };
 
 const styles = StyleSheet.create({});
 
-export default Home;
+export default Favorites;
