@@ -3,6 +3,8 @@ import React from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import SearchBar from "../components/searchBar";
+import Categories from "../components/categories";
+import CoffeeCard from "../components/coffeeCard";
 
 const Home = () => {
   let [fontsLoaded, fontError] = useFonts({
@@ -14,6 +16,8 @@ const Home = () => {
       <ScrollView>
         <Text style={styles.title}>Find the best Coffee for you</Text>
         <SearchBar></SearchBar>
+        <Categories></Categories>
+        <CoffeeCard></CoffeeCard>
       </ScrollView>
     </SafeAreaView>
   );
@@ -31,13 +35,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontFamily: "PoppinsSemiBold",
     fontSize: 24,
-    marginHorizontal: 35,
+    marginHorizontal: 45,
     marginTop: 60,
-    marginBottom: 30,
-
+    marginBottom: 40,
     width: 200,
     textAlign: "left",
-    letterSpacing: 0.8,
+    letterSpacing: 0.9,
   },
 });
 
