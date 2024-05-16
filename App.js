@@ -20,9 +20,9 @@ export default function App() {
           <Provider store={store}>
             {/* <StatusBar style="light"></StatusBar> */}
             {/* <Payment></Payment> */}
-            <Favorites></Favorites>
+            {/* <Favorites></Favorites> */}
             {/* <ItemDetails></ItemDetails> */}
-            {/* <BottomNavbar></BottomNavbar> */}
+            <BottomNavbar></BottomNavbar>
           </Provider>
         </NavigationContainer>
       </GestureHandlerRootView>
