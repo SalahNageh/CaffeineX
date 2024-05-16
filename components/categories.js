@@ -10,7 +10,7 @@ const Categories = () => {
       showsHorizontalScrollIndicator={false}
       style={{
         margin: 10,
-        marginLeft: 28,
+        marginLeft: 20,
       }}
     >
       <SingleCategory categoryTitle="All" />

@@ -20,7 +20,7 @@ const Cart = () => {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.cardsContainer}>
           <Card style={styles.card} elevation={5}>
-            <View style={styles.cardContent}>
+            <View style={stylenames.cardContent}>
               <Card.Cover
                 source={{
                   uri:

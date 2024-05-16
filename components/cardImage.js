@@ -2,25 +2,31 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"; // Import the icon you want to use
 
-const CardImage = () => {
+const CardImage = ({ image }) => {
   return (
     <View style={styles.container}>
       <Image
         source={{
-          uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1280px-A_small_cup_of_coffee.JPG",
+          uri: image,
         }}
         style={styles.image}
       />
       <View style={styles.overlay}>
-        {/* Your star icon and rating component here */}
-        {/* Example: */}
-        <Icon name="star" size={20} color="#D17842" />
+        <Icon
+          name="star"
+          size={18}
+          color="#D9662C"
+          style={{
+            alignSelf: "center",
+            paddingRight: 7,
+          }}
+        />
         <Text
           style={{
             color: "white",
+            alignSelf: "center",
           }}
         >
-          {" "}
           4.5
         </Text>
       </View>
@@ -31,7 +37,7 @@ const CardImage = () => {
 const styles = StyleSheet.create({
   container: {
     width: "75%",
-    height: "60%",
+    aspectRatio: 1,
     borderRadius: 20,
     overflow: "hidden",
     marginTop: 20,
@@ -46,14 +52,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     right: 0,
-    padding: 10,
+    alignSelf: "center",
     flexDirection: "row",
-    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     borderBottomLeftRadius: 30,
-
     width: "50%",
-    height: "25%",
+    height: "20%",
   },
 });
 
