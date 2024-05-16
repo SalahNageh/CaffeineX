@@ -5,7 +5,7 @@ import { Provider } from "react-native-paper";
 import store from "./redux/store";
 import BottomNavbar from "./navigators/bottomNavbar";
 import HomeStack from "./navigators/homeStack";
-import Payment from "./pages/Payment";
+import ItemDetails from "./pages/itemDetails";
 // import Cart from './components/Cart';
 // import EmptyListAnimation from './components/EmptyListAnimation';
 
@@ -14,9 +14,9 @@ export default function App() {
     <NavigationContainer>
       <Provider store={store}>
         {/* <StatusBar style="light"></StatusBar> */}
-        <Payment></Payment>
+        {/* <Payment></Payment> */}
+        <ItemDetails></ItemDetails>
         {/* <BottomNavbar></BottomNavbar> */}
-        
       </Provider>
     </NavigationContainer>
   );
