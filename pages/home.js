@@ -6,6 +6,7 @@ import SearchBar from "../components/searchBar";
 import Categories from "../components/categories";
 import CoffeeCard from "../components/coffeeCard";
 import ProductList from "../components/productList";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
   let [fontsLoaded, fontError] = useFonts({
@@ -113,7 +114,6 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#0c1013",
     padding: 50,
-
     justifyContent: "center",
   },
   title: {
