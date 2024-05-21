@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useFonts } from "expo-font";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedCategory } from "../redux/slices/category_slice";
+import { setSelectedCategory } from "../redux/slices/product_slice";
 
 const SingleCategory = ({ categoryTitle }) => {
   const dispatch = useDispatch();
   const selectedCategory = useSelector(
-    (state) => state.categories.selectedCategory
+    (state) => state.products.selectedCategory
   );
 
   const [fontsLoaded, fontError] = useFonts({

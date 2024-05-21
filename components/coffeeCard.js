@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import CardImage from "./cardImage";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
-const CoffeeCard = ({ name, description, price, image }) => {
+const CoffeeCard = ({ name, description, price, image, rate }) => {
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -13,10 +13,14 @@ const CoffeeCard = ({ name, description, price, image }) => {
         end={[1, 0]}
         style={styles.gradient}
       />
-      <CardImage image={image}></CardImage>
+      <CardImage image={image} rate={rate}></CardImage>
       <View style={styles.infoContainer}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.description}>{description}</Text>
+        <Text style={styles.name} numberOfLines={1}>
+          {name}
+        </Text>
+        <Text numberOfLines={3} style={styles.description}>
+          {description}
+        </Text>
       </View>
       <View
         style={{
@@ -40,8 +44,8 @@ const CoffeeCard = ({ name, description, price, image }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 185,
-    aspectRatio: 0.67,
+    width: 200,
+    aspectRatio: 0.6,
     backgroundColor: "#11161a",
     borderRadius: 30,
     marginVertical: 20,
@@ -60,6 +64,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     marginVertical: 5,
     fontSize: 20,
+    paddingRight: 10,
   },
   description: {
     color: "white",
@@ -73,6 +78,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontFamily: "Poppins",
     fontSize: 18,
+    marginLeft: "7%",
+    position: "absolute",
+    bottom: -15,
+    left: 0,
   },
 
   currency: {
@@ -80,7 +89,9 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     fontSize: 16,
     marginTop: 1,
-    paddingRight: "5%",
+    marginLeft: "7%",
+    bottom: -15,
+    left: -15,
   },
   addButton: {
     position: "absolute",

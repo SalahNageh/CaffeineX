@@ -1,14 +1,35 @@
 import { useFonts } from "expo-font";
-import React from "react";
+import { update } from "firebase/database";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Icon from "react-native-ico-modern-ui";
 import { IconButton, TextInput } from "react-native-paper";
+import { useDispatch } from "react-redux";
+import {
+  fetchBeans,
+  fetchDrinks,
+  updateBeans,
+  updateDrinks,
+} from "../redux/slices/product_slice";
 
 const SearchBar = () => {
   let [fontsLoaded, fontError] = useFonts({
     Poppins: require("../assets/fonts/Poppins-Medium.ttf"),
     PoppinsSemiBold: require("../assets/fonts/Poppins-SemiBold.ttf"),
   });
+  const dispatch = useDispatch();
+  let [search, setSearch] = useState("");
+
+  const updateSearch = (search) => {
+    setSearch(search);
+    if (search.length > 0) {
+      dispatch(updateDrinks(search));
+      dispatch(updateBeans(search));
+    } else {
+      dispatch(fetchDrinks());
+      dispatch(fetchBeans());
+    }
+  };
   return (
     <View style={styles.searchBar}>
       <IconButton icon="magnify" color="#000" size={24} onPress={() => {}} />
@@ -18,6 +39,8 @@ const SearchBar = () => {
         placeholder="Find your coffee.."
         placeholderTextColor={"gray"}
         textColor="white"
+        value={search}
+        onChangeText={updateSearch}
         underlineColor="transparent"
         contentStyle={{
           fontFamily: "Poppins",

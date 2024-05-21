@@ -7,15 +7,10 @@ import Categories from "../components/categories";
 import CoffeeCard from "../components/coffeeCard";
 import ProductList from "../components/productList";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addDrinks,
-  fetchBeans,
-  fetchDrinks,
-  updateDrinks,
-} from "../redux/slices/product_slice";
+import { fetchBeans, fetchDrinks } from "../redux/slices/product_slice";
 
 const Home = () => {
-  const drinks = useSelector((state) => state.products.drinks);
+  const drinks = useSelector((state) => state.products.filteredDrinks);
   const beans = useSelector((state) => state.products.beans);
 
   const dispatch = useDispatch();

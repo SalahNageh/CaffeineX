@@ -15,6 +15,7 @@ const ProductList = ({ coffeeData }) => {
           description={item.description}
           price={item.price}
           image={item.image}
+          rate={item.rate}
         ></CoffeeCard>
       )}
       style={{ marginLeft: 30 }}

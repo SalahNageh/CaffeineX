@@ -2,18 +2,44 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { database } from "../../firebaseConfig";
 
-export const updateBeans = createAsyncThunk(
-  "products/updateBeans",
-  async (data) => {
+export const updateDrinks = createAsyncThunk(
+  "products/updateDrinks",
+  async (searchQuery) => {
     try {
-      const { id, ...rest } = data;
-      await setDoc(doc(database, "Beans", id), rest);
-      return { id, ...rest };
+      const snapshot = await getDocs(collection(database, "Drinks"));
+      const drinksData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      const filteredDrinks = drinksData.filter((drink) =>
+        drink.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      return filteredDrinks;
     } catch (error) {
-      console.error("Error updating beans:", error);
+      console.error("Error updating drinks:", error);
     }
   }
 );
+
+export const updateBeans = createAsyncThunk(
+  "products/updateBeans",
+  async (searchQuery) => {
+    try {
+      const snapshot = await getDocs(collection(database, "Beans"));
+      const beansData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      const filteredBeans = beansData.filter((bean) =>
+        bean.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      return filteredBeans;
+    } catch (error) {
+      console.error("Error updating Beans:", error);
+    }
+  }
+);
+
 export const fetchDrinks = createAsyncThunk(
   "products/fetchDrinks",
   async () => {
@@ -47,10 +73,23 @@ const productSlice = createSlice({
   initialState: {
     drinks: [],
     beans: [],
+    filteredDrinks: [],
+    selectedCategory: "All",
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    setSelectedCategory: (state, action) => {
+      state.selectedCategory = action.payload;
+      if (action.payload != "All") {
+        state.filteredDrinks = state.drinks.filter(
+          (drink) => drink.category === action.payload
+        );
+      } else {
+        state.filteredDrinks = state.drinks;
+      }
+    },
+  },
   extraReducers(builder) {
     builder.addCase(fetchDrinks.pending, (state, action) => {
       state.loading = true;
@@ -58,6 +97,7 @@ const productSlice = createSlice({
     builder.addCase(fetchDrinks.fulfilled, (state, action) => {
       state.loading = false;
       state.drinks = action.payload;
+      state.filteredDrinks = action.payload;
     });
     builder.addCase(fetchDrinks.rejected, (state, action) => {
       state.loading = false;
@@ -74,9 +114,31 @@ const productSlice = createSlice({
       state.loading = false;
       state.error = action.error.message;
     });
-    builder.addCase(addDrinks.fulfilled, (state, action) => {
-      state.drinks.push(action.payload);
+    builder.addCase(updateDrinks.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(updateDrinks.fulfilled, (state, action) => {
+      state.loading = false;
+      state.drinks = action.payload;
+      state.filteredDrinks = action.payload;
+    });
+    builder.addCase(updateDrinks.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(updateBeans.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(updateBeans.fulfilled, (state, action) => {
+      state.loading = false;
+      state.beans = action.payload;
+    });
+    builder.addCase(updateBeans.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
     });
   },
 });
+export const { setSelectedCategory } = productSlice.actions;
+
 export default productSlice.reducer;

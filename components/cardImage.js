@@ -2,7 +2,7 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome"; // Import the icon you want to use
 
-const CardImage = ({ image }) => {
+const CardImage = ({ image, rate }) => {
   return (
     <View style={styles.container}>
       <Image
@@ -27,7 +27,7 @@ const CardImage = ({ image }) => {
             alignSelf: "center",
           }}
         >
-          4.5
+          {rate}
         </Text>
       </View>
     </View>
