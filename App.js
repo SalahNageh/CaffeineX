@@ -10,6 +10,7 @@ import BottomNavbar from "./navigators/bottomNavbar";
 import HomeStack from "./navigators/homeStack";
 import ItemDetails from "./pages/itemDetails";
 import Favorites from "./pages/favorites";
+import firebaseConfiguration from "./firebaseConfig";
 // import Cart from './components/Cart';
 // import EmptyListAnimation from './components/EmptyListAnimation';
 
@@ -19,7 +20,7 @@ export default function App() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <NavigationContainer>
           <Provider store={store}>
-            {/* <StatusBar style="light"></StatusBar> */}
+            <StatusBar style="light"></StatusBar>
             {/* <Payment></Payment> */}
             {/* <Favorites></Favorites> */}
             {/* <ItemDetails></ItemDetails> */}

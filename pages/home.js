@@ -1,99 +1,42 @@
 import { useFonts } from "expo-font";
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import SearchBar from "../components/searchBar";
 import Categories from "../components/categories";
 import CoffeeCard from "../components/coffeeCard";
 import ProductList from "../components/productList";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addDrinks,
+  fetchBeans,
+  fetchDrinks,
+  updateDrinks,
+} from "../redux/slices/product_slice";
 
 const Home = () => {
+  const drinks = useSelector((state) => state.products.drinks);
+  const beans = useSelector((state) => state.products.beans);
+
+  const dispatch = useDispatch();
+
   let [fontsLoaded, fontError] = useFonts({
     Poppins: require("../assets/fonts/Poppins-Medium.ttf"),
     PoppinsSemiBold: require("../assets/fonts/Poppins-SemiBold.ttf"),
   });
-  const coffeeData = [
-    {
-      name: "Latte",
-      description: "With Steamed Milk",
-      price: 13.99,
-      rate: 4.5,
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1280px-A_small_cup_of_coffee.JPG",
-    },
-    {
-      name: "Cappuccino",
-      description: "With Steamed Milk",
-      price: 13.99,
-      rate: 4.5,
 
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1280px-A_small_cup_of_coffee.JPG",
-    },
-    {
-      name: "Espresso",
-      description: "With Steamed Milk",
-      price: 13.99,
-      rate: 4.5,
+  useEffect(() => {
+    dispatch(fetchDrinks());
+    dispatch(fetchBeans());
+  }, []);
 
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1280px-A_small_cup_of_coffee.JPG",
-    },
-    {
-      name: "Americano",
-      description: "With Steamed Milk",
-      price: 13.99,
-      rate: 4.5,
-
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1280px-A_small_cup_of_coffee.JPG",
-    },
-  ];
-  const coffeeBeans = [
-    {
-      name: "Latte",
-      description: "With Steamed Milk",
-      price: 13.99,
-      rate: 4.5,
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1280px-A_small_cup_of_coffee.JPG",
-    },
-    {
-      name: "Cappuccino",
-      description: "With Steamed Milk",
-      price: 13.99,
-      rate: 4.5,
-
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1280px-A_small_cup_of_coffee.JPG",
-    },
-    {
-      name: "Espresso",
-      description: "With Steamed Milk",
-      price: 13.99,
-      rate: 4.5,
-
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1280px-A_small_cup_of_coffee.JPG",
-    },
-    {
-      name: "Americano",
-      description: "With Steamed Milk",
-      price: 13.99,
-      rate: 4.5,
-
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1280px-A_small_cup_of_coffee.JPG",
-    },
-  ];
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <Text style={styles.title}>Find the best Coffee for you</Text>
         <SearchBar></SearchBar>
         <Categories></Categories>
-        <ProductList coffeeData={coffeeData}></ProductList>
+        <ProductList coffeeData={drinks}></ProductList>
         <Text
           style={[
             styles.title,
@@ -102,7 +45,7 @@ const Home = () => {
         >
           Coffee Beans
         </Text>
-        <ProductList coffeeData={coffeeBeans}></ProductList>
+        <ProductList coffeeData={beans}></ProductList>
       </ScrollView>
     </SafeAreaView>
   );
